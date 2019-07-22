@@ -25,7 +25,7 @@ $npm start
 | -------------- | ------ | ----------- | ------ |
 | email          | String | title       | String |
 | hashedPassword | String | source      | String |
-| token          | String | url         | String |
+| token          | String | videoId     | String |
 |                |        | category    | String |
 |                |        | description | String |
 |                |        | owner       | String |
