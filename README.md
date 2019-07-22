@@ -3,6 +3,7 @@
 
 
 ## Web Application Description 
+This web application will gather the most valuable free programming video tutorials to get you started in the programming world .
 
 
 ---
@@ -20,6 +21,15 @@ $npm start
 
 ---
 ## Data Modeling
+| User           | Type   | Video       | Type   |
+| -------------- | ------ | ----------- | ------ |
+| email          | String | title       | String |
+| hashedPassword | String | source      | String |
+| token          | String | url         | String |
+|                |        | category    | String |
+|                |        | description | String |
+|                |        | owner       | String |
+
 
 
 
@@ -27,8 +37,14 @@ $npm start
 
 
 ## Technologies
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JSON APIs
 
 
 
+## Developer
 
-## Developers
+Wijdan Kuddah
