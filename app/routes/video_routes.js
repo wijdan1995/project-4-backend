@@ -11,6 +11,7 @@ const handle404 = customErrors.handle404;
 
 const requireOwnership = customErrors.requireOwnership;
 
+const removeBlanks = require('../../lib/remove_blank_fields')
 
 const requireToken = passport.authenticate('bearer', { session: false })
 
@@ -30,10 +31,10 @@ router.get('/videos', (req, res, next) => {
 // CREATE -post /videos
 router.post('/videos', requireToken, (req, res, next) => {
     const id = req.user.id
-    const newvideo = req.body.video
-    newvideo.owner = id
+    const newVideo = req.body.video
+    newVideo.owner = id
 
-    video.create(newvideo)
+    video.create(newVideo)
         .then(video => {
             res.status(201).json({ video: video })
         })
@@ -54,10 +55,10 @@ router.get('/videos/:id', (req, res, next) => {
 
 
 //Update -put/patch /videos/:id
-router.put('/videos/:id', requireToken, (req, res, next) => {
+router.put('/videos/:id', requireToken, removeBlanks, (req, res, next) => {
     const idVideo = req.params.id;
     const updateVideo = req.body.video;
-    delete req.body.video.owner
+    // delete req.body.video.owner
 
 
     video.findById(idVideo)

@@ -10,6 +10,9 @@ const userRoutes = require('./app/routes/user_routes')
 //video routes
 const videoRoutes = require('./app/routes/video_routes')
 
+const adminRoutes = require('./app/routes/admin_routes')
+const commentRoutes = require('./app/routes/comment_routes')
+
 // require error handling middleware
 const errorHandler = require('./lib/error_handler')
 
@@ -67,8 +70,12 @@ app.use(requestLogger)
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
-//use video routes
+
+//use routes
 app.use(videoRoutes)
+app.use(adminRoutes)
+app.use(commentRoutes)
+
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be

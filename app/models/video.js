@@ -31,4 +31,10 @@ const videoSchema = new mongoose.Schema({
         timestamps: true
     })
 
+videoSchema.virtual('comments', {
+    ref: 'Comment',
+    localField: '_id',
+    foreignField: 'videoId'
+});
+
 module.exports = mongoose.model('Video', videoSchema)

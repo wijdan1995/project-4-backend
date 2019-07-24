@@ -10,6 +10,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  admin: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
   token: String
 }, {
     timestamps: true,
@@ -28,10 +33,16 @@ userSchema.virtual('examples', {
   foreignField: 'owner'
 });
 
-userSchema.virtual('video', {
+userSchema.virtual('videos', {
   ref: 'Video',
   localField: '_id',
   foreignField: 'owner'
+});
+
+userSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'userId'
 });
 
 module.exports = mongoose.model('User', userSchema)
