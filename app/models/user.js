@@ -15,6 +15,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: false
   },
+  name: {
+    type: String,
+    // required: true,
+    unique: true,
+    uppercase: true
+  },
   token: String
 }, {
     timestamps: true,
@@ -42,13 +48,7 @@ userSchema.virtual('videos', {
 userSchema.virtual('comments', {
   ref: 'Comment',
   localField: '_id',
-  foreignField: 'userId'
+  foreignField: 'owner'
 });
-
-// userSchema.virtual('comments', {
-//   ref: 'Comment',
-//   localField: 'email',
-//   foreignField: 'userEmail'
-// });
 
 module.exports = mongoose.model('User', userSchema)

@@ -5,14 +5,19 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
+    // userId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    //     required: true
+    // },
+    userName: {
+        type: mongoose.Schema.Types.String,
         ref: "User",
         required: true
     },
-    userEmail: {
-        type: mongoose.Schema.Types.String,
-        ref: "User",
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
     videoId: {

@@ -34,7 +34,8 @@ router.post('/sign-up-admin', (req, res, next) => {
                 email: req.body.credentials.email,
                 hashedPassword: hash,
                 // to create it as admin
-                admin: true
+                admin: true,
+                name: req.body.credentials.name
             }
         })
         // create user with provided email and hashed password

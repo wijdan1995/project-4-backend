@@ -32,18 +32,30 @@ router.post('/videos/:id/comments', requireToken, (req, res, next) => {
     const id = req.user.id
     // const video = req.video._id
     const newComment = req.body.comment
-    newComment.userId = id
-    newComment.userEmail = req.user.email
+    // newComment.userId = id
+    newComment.owner = id
+    newComment.userName = req.user.name
     // newComment.videoId = video
-    console.log(req._id)
-
-    // how to get the video id
 
     Comment.create(newComment)
         .then(comment => {
             res.status(201).json({ comment: comment })
         })
         .catch(next);
+})
+
+
+//Destroy - delete /comments/:id
+router.delete('/comments/:id', requireToken, (req, res, next) => {
+    const idComment = req.params.id
+    Comment.findById(idComment)
+        .then(handle404)
+        .then((comment) => {
+            requireOwnership(req, comment)
+            comment.remove()
+        })
+        .then(() => res.sendStatus(204))
+        .catch(next)
 })
 
 
@@ -59,39 +71,24 @@ router.post('/videos/:id/comments', requireToken, (req, res, next) => {
 // })
 
 
-//Update -put/patch /comments/:id
-router.put('/videos/:id/comments/:id', requireToken, removeBlanks, (req, res, next) => {
-    const idComment = req.params.id;
-    const updateComment = req.body.comment;
-    // delete req.body.Comment.owner
+// //Update -put/patch /comments/:id
+// router.put('/videos/:id/comments/:id', requireToken, removeBlanks, (req, res, next) => {
+//     const idComment = req.params.id;
+//     const updateComment = req.body.comment;
+//     // delete req.body.Comment.owner
 
 
-    Comment.findById(idComment)
-        .then(handle404)
-        .then((comment) => {
-            requireOwnership(req, comment)
-            return Comment.update(updateComment)
-        })
-        .then((comment) => {
-            res.status(201).json({ comment: comment })
-        })
-        .catch(next)
-})
-
-
-//Destroy - delete /comments/:id
-router.delete('/videos/:id/comments/:id', requireToken, (req, res, next) => {
-    const idcomment = req.params.id
-    Comment.findById(idcomment)
-        .then(handle404)
-        .then((comment) => {
-            requireOwnership(req, comment)
-            Comment.remove()
-        })
-        .then(() => res.sendStatus(204))
-        .catch(next)
-})
-
+//     Comment.findById(idComment)
+//         .then(handle404)
+//         .then((comment) => {
+//             requireOwnership(req, comment)
+//             return Comment.update(updateComment)
+//         })
+//         .then((comment) => {
+//             res.status(201).json({ comment: comment })
+//         })
+//         .catch(next)
+// })
 
 
 module.exports = router
