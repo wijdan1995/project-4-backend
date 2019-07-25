@@ -45,4 +45,10 @@ userSchema.virtual('comments', {
   foreignField: 'userId'
 });
 
+// userSchema.virtual('comments', {
+//   ref: 'Comment',
+//   localField: 'email',
+//   foreignField: 'userEmail'
+// });
+
 module.exports = mongoose.model('User', userSchema)

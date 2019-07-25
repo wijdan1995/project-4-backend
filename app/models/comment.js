@@ -10,6 +10,11 @@ const commentSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    userEmail: {
+        type: mongoose.Schema.Types.String,
+        ref: "User",
+        required: true
+    },
     videoId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Video",

@@ -33,6 +33,7 @@ router.post('/videos/:id/comments', requireToken, (req, res, next) => {
     // const video = req.video._id
     const newComment = req.body.comment
     newComment.userId = id
+    newComment.userEmail = req.user.email
     // newComment.videoId = video
     console.log(req._id)
 
