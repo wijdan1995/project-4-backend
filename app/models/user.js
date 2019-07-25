@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    // required: true,
+    required: true,
     unique: true,
     uppercase: true
   },
@@ -29,6 +29,9 @@ const userSchema = new mongoose.Schema({
       transform: (_doc, user) => {
         delete user.hashedPassword
         return user
+      },
+      toJSON: {
+        virtuals: true
       }
     }
   })
@@ -47,6 +50,11 @@ userSchema.virtual('videos', {
 
 userSchema.virtual('comments', {
   ref: 'Comment',
+  localField: '_id',
+  foreignField: 'owner'
+});
+userSchema.virtual('lists', {
+  ref: 'List',
   localField: '_id',
   foreignField: 'owner'
 });

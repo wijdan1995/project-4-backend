@@ -28,7 +28,7 @@ router.get('/videos/:id/comments', (req, res, next) => {
 
 
 // CREATE -post /comments
-router.post('/videos/:id/comments', requireToken, (req, res, next) => {
+router.post('/comments', requireToken, (req, res, next) => {
     const id = req.user.id
     // const video = req.video._id
     const newComment = req.body.comment
