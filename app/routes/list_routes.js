@@ -56,17 +56,20 @@ router.put('/mylist/:id', requireToken, (req, res, next) => {
         .catch(next);
 })
 
-// //Destroy - delete /mylist/:id
-// router.delete('/mylist/:id', requireToken, (req, res, next) => {
-//     const idList = req.params.id
-//     List.findById(idList)
-//         .then(handle404)
-//         .then((list) => {
-//             requireOwnership(req, list)
-//             list.remove()
-//         })
-//         .then(() => res.sendStatus(204))
-//         .catch(next)
-// })
+// patch - delete /mylist/: id
+router.patch('/mylist/:id', requireToken, (req, res, next) => {
+    const listId = req.params.id
+    const newArray = req.body.newArray
+
+
+    List.findById(listId)
+        .then(list => {
+            list.videos = newArray
+            console.log("list  with video", list)
+            return list.save()
+        })
+        .then(list => res.status(201).json({ list: list }))
+        .catch(next);
+})
 
 module.exports = router

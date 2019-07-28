@@ -16,6 +16,7 @@ const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 
 const User = require('../models/user')
+// to create list with signup
 const List = require('../models/list')
 
 // passing this as a second argument to `router.<verb>` will make it

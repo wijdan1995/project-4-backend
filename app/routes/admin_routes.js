@@ -9,6 +9,8 @@ const errors = require('../../lib/custom_errors')
 const BadParamsError = errors.BadParamsError
 
 const User = require('../models/user')
+// to create list with signup
+const List = require('../models/list')
 
 const router = express.Router()
 
@@ -42,7 +44,12 @@ router.post('/sign-up-admin', (req, res, next) => {
         .then(user => User.create(user))
         // send the new user object back with status 201, but `hashedPassword`
         // won't be send because of the `transform` in the User model
-        .then(user => res.status(201).json({ user: user.toObject() }))
+        // .then(user => res.status(201).json({ user: user.toObject() }))
+        .then(user => {
+            newUser = user
+            return List.create({ owner: user._id })
+        })
+        .then(list => res.status(201).json({ user: newUser.toObject() }))
         // pass any errors along to the error handler
         .catch(next)
 })
