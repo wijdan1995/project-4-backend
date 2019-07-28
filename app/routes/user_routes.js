@@ -16,6 +16,7 @@ const BadParamsError = errors.BadParamsError
 const BadCredentialsError = errors.BadCredentialsError
 
 const User = require('../models/user')
+const List = require('../models/list')
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
@@ -28,6 +29,7 @@ const router = express.Router()
 // SIGN UP
 // POST /sign-up
 router.post('/sign-up', (req, res, next) => {
+  let newUser
   // start a promise chain, so that any errors will pass to `handle`
   Promise.resolve(req.body.credentials)
     // reject any requests where `credentials.password` is not present, or where
@@ -53,7 +55,11 @@ router.post('/sign-up', (req, res, next) => {
     .then(user => User.create(user))
     // send the new user object back with status 201, but `hashedPassword`
     // won't be send because of the `transform` in the User model
-    .then(user => res.status(201).json({ user: user.toObject() }))
+    .then(user => {
+      newUser = user
+      return List.create({ owner: user._id })
+    })
+    .then(list => res.status(201).json({ user: newUser.toObject() }))
     // pass any errors along to the error handler
     .catch(next)
 })
@@ -66,6 +72,7 @@ router.post('/sign-in', (req, res, next) => {
 
   // find a user based on the email that was passed
   User.findOne({ email: req.body.credentials.email })
+    .populate('lists')
     .then(record => {
       // if we didn't find a user with that email, send 401
       if (!record) {

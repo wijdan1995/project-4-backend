@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
     unique: true,
     uppercase: true
   },
+  // list: {
+  //   type: String
+  // },
   token: String
 }, {
     timestamps: true,
@@ -30,9 +33,10 @@ const userSchema = new mongoose.Schema({
         delete user.hashedPassword
         return user
       },
-      toJSON: {
+      virtuals: true
+    },
+    toJSON: {
         virtuals: true
-      }
     }
   })
 

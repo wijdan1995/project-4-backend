@@ -26,9 +26,17 @@ const videoSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    // lists: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "List",
+    //     required: true,
+    // }],
 }, {
-        timestamps: true
+        timestamps: true,
+        toJSON: {
+            virtuals: true
+        }
     })
 
 videoSchema.virtual('comments', {
