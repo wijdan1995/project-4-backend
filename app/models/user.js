@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    uppercase: true
+    // uppercase: true
   },
   // list: {
   //   type: String
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
       virtuals: true
     },
     toJSON: {
-        virtuals: true
+      virtuals: true
     }
   })
 
