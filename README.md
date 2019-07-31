@@ -21,14 +21,43 @@ $npm start
 
 ---
 ## Data Modeling
-| User           | Type   | Video       | Type   |
-| -------------- | ------ | ----------- | ------ |
-| email          | String | title       | String |
-| hashedPassword | String | source      | String |
-| token          | String | videoId     | String |
-|                |        | category    | String |
-|                |        | description | String |
-|                |        | owner       | String |
+| User           | Type   |
+| -------------- | ------ |
+| email          | String |
+| hashedPassword | String |
+| token          | String |
+
+---
+
+| Video       | Type                  |
+| ----------- | --------------------- |
+| title       | String                |
+| source      | String                |
+| videoId     | String                |
+| category    | String                |
+| description | String                |
+| owner       | ObjectId  ref: 'User' |
+
+---
+
+| Comment  | Type                   |
+| -------- | ---------------------- |
+| content  | String                 |
+| userName | String                 |
+| owner    | ObjectId  ref: 'User'  |
+| videoId  | ObjectId  ref: 'Video' |
+
+
+---
+
+| List   | Type                   |
+| ------ | ---------------------- |
+| owner  | ObjectId  ref: 'User'  |
+| videos | ObjectId  ref: 'Video' |
+
+
+
+
 
 
 
